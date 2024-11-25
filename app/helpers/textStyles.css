@@ -33,12 +33,19 @@
   font-weight: 400;
   line-height: 18px;
 }
+.fs-550-20 {
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 24px;
+}
 
 .fs-550-32 {
   font-size: 32px;
   font-weight: 550;
   line-height: 38.4px;
 }
+
+
 
 @media(max-width:768px){
   .fs-550-32 {

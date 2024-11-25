@@ -1,7 +1,12 @@
+import { useNavigate } from "@remix-run/react";
 import React from "react";
 import ArrowBack from "~/assets/icons/ArrowBack";
 
 const FooterInfo = ({ currentStep, setCurrentStep }) => {
+  const navigate =useNavigate()
+  const skipForNow =()=>{
+   navigate('/complete')
+  }
   return (
     <div>
       {" "}
@@ -16,7 +21,7 @@ const FooterInfo = ({ currentStep, setCurrentStep }) => {
 
           {currentStep == 3 && (
             <div
-              onClick={() => setCurrentStep((prev) => prev - 1)}
+              onClick={skipForNow}
               className="flex items-center justify-start  mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
             >
               <span className="mr-2"> Skip for now </span>{" "}

@@ -17,6 +17,7 @@ import Step4 from "./steps/Step4";
 import Header from "./Header";
 import { validateStep } from "../../utils/Validator";
 import FooterInfo from "./FooterInfo";
+import { useNavigate } from "@remix-run/react";
 
 const CompanyInfo = () => {
   const [formData, setFormData] = useState({
@@ -37,6 +38,7 @@ const CompanyInfo = () => {
   });
 
   const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const steps = [
     {
@@ -86,6 +88,10 @@ const CompanyInfo = () => {
   console.log(errors, "errors");
 
   const handleContinue = () => {
+    if (currentStep == steps.length - 1) {
+      navigate("/complete");
+      return
+    }
     const stepErrors = validateStep(currentStep, formData);
 
     if (Object.keys(stepErrors).length === 0) {
@@ -94,6 +100,8 @@ const CompanyInfo = () => {
     } else {
       setErrors(stepErrors);
     }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
   const renderStep = () => {
     switch (currentStep) {
@@ -147,8 +155,8 @@ const CompanyInfo = () => {
   };
 
   return (
-    <div className="mx-auto container w-full px-4 md:px-10 mt-4 flex mb-10">
-      <div className="mb-8 w-4/12 ">
+    <div className="mx-auto container w-full px-4 md:px-10 mt-4 flex md:flex-row flex-col mb-10">
+      <div className="mb-8 w-12/12 md:mx-0  md:w-4/12 ">
         <Stepper steps={steps} activeStep={currentStep} />
       </div>
 

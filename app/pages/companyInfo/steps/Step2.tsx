@@ -5,6 +5,7 @@ import LocationIcon from "~/assets/icons/LocationIcon";
 import TimeIcon from "~/assets/icons/TimeIcon";
 import Dropdown from "~/components/Dropdown";
 import Text from "~/components/Text";
+import TextArea from "~/components/TextArea";
 
 const Step2 = ({ formData, onInputChange, handleContinue, errors }) => {
   const MAX_CHARACTERS = 100;
@@ -46,22 +47,16 @@ const Step2 = ({ formData, onInputChange, handleContinue, errors }) => {
   return (
     <div>
       <div className="mt-4 relative">
-        <Text className="text-neutral-black" style="fs-500-14">
-          Company Description
-        </Text>
+        
         <div className="relative">
-          <textarea
-            className="w-full p-3 border border-neutral-light rounded-md mt-2  focus:ring-neutral-primary focus:border-neutral-primary disabled:bg-gray-100"
-            rows={rows}
-            name="description"
+          <TextArea
+            label="Company Description"
             value={state.description}
-            onChange={(e) => handleChange("description", e.target.value)}
+            onChange={(value) => handleChange("description", value)}
             placeholder="Provide a brief description of your company"
-            maxLength={MAX_CHARACTERS}
+            maxCharacters={100}
+            error={errors.description}
           />
-          <div className="absolute bottom-2 right-2 text-xs text-neutral-500">
-            {state.description.length}/{MAX_CHARACTERS}
-          </div>
         </div>
       </div>
 
@@ -88,7 +83,6 @@ const Step2 = ({ formData, onInputChange, handleContinue, errors }) => {
           onChange={(value) => handleChange("location", value)}
           placeholder="Select location"
           name="location"
-         
           options={[
             { value: "usa", label: "United States" },
             { value: "canada", label: "Canada" },

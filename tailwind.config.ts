@@ -32,6 +32,7 @@ export default {
           secondary: "#7730F7",
           soft: "#F4F2FF",
           crisp: "#C1B1FE",
+          surface:"#976BFF"
         },
       },
       boxShadow: {
