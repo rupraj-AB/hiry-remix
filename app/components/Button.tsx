@@ -1,0 +1,60 @@
+import React from "react";
+
+const Button = ({
+  variant = "primary",
+  children,
+  onClick,
+
+  icon,
+  iconPosition = "left",
+  disabled = false,
+  type = "button",
+  fullWidth = false,
+  ...props
+}: any) => {
+  const baseStyles =
+    "inline-flex items-center justify-center px-6 py-3 rounded-full fs-500-16 transition-all duration-200 ";
+
+  const variants = {
+    primary: `${baseStyles} bg-blue-surface text-white hover:bg-blue-700 active:bg-blue-800 disabled:bg-blue-300`,
+    secondary: `${baseStyles} bg-white text-neutral-black border border-neutral-primary hover:bg-gray-50 active:bg-gray-100 disabled:bg-gray-50 disabled:text-gray-400`,
+  };
+
+  const renderContent = () => {
+    if (!icon) return children;
+
+    const iconElement = React.cloneElement(icon, {
+      className: `${iconPosition === "left" ? "mr-2" : "ml-2"}`,
+    });
+
+    return (
+      <>
+        {iconPosition === "left" && iconElement}
+        {children}
+        {iconPosition === "right" && iconElement}
+      </>
+    );
+  };
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        ${variants[variant]}
+        ${fullWidth ? "w-full" : ""}
+        focus:outline-none
+        focus:ring-2
+        focus:ring-offset-2
+        ${variant === "primary" ? "focus:ring-blue-500" : "focus:ring-gray-500"}
+        disabled:cursor-not-allowed
+      `}
+      {...props}
+    >
+      {renderContent()}
+    </button>
+  );
+};
+
+export default Button;
