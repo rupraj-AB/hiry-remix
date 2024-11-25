@@ -6,13 +6,11 @@ import Button from "~/components/Button";
 import Dropdown from "~/components/Dropdown";
 import Input from "~/components/Input";
 
-const Step4 = ({ formData, onInputChange, handleContinue }) => {
-  // State to manage multiple invites
+const Step4 = ({ formData, onInputChange, handleContinue, errors }) => {
   const [invites, setInvites] = useState<any[]>([
     { inviteEmail: "", inviteRole: "" },
   ]);
 
-  // Handle change for a specific invite index
   const handleInviteChange = (index, name, value) => {
     const updatedInvites = [...invites];
     updatedInvites[index] = {
@@ -21,7 +19,6 @@ const Step4 = ({ formData, onInputChange, handleContinue }) => {
     };
     setInvites(updatedInvites);
 
-    // Update parent form data with all invites
     onInputChange({
       target: {
         name: "invites",
@@ -30,12 +27,10 @@ const Step4 = ({ formData, onInputChange, handleContinue }) => {
     });
   };
 
-  // Add new invite row
   const addInviteRow = () => {
     setInvites([...invites, { inviteEmail: "", inviteRole: "" }]);
   };
 
-  // Remove a specific invite row
   const removeInviteRow = (indexToRemove) => {
     const updatedInvites = invites.filter(
       (_, index) => index !== indexToRemove
@@ -58,7 +53,7 @@ const Step4 = ({ formData, onInputChange, handleContinue }) => {
             <Input
               type="email"
               label=""
-            
+              error={errors[`inviteEmail-${index}`]}
               name={`inviteEmail-${index}`}
               value={invite.inviteEmail}
               onChange={(e) =>
@@ -67,12 +62,13 @@ const Step4 = ({ formData, onInputChange, handleContinue }) => {
               placeholder="example@email.com"
             />
           </div>
-          <div className="flex-1"> 
+          <div className="flex-1">
             <Dropdown
               value={invite.inviteRole.value}
               onChange={(value) =>
                 handleInviteChange(index, "inviteRole", value)
               }
+              error={errors[`inviteRole-${index}`]}
               placeholder="Select role"
               name={`inviteRole-${index}`}
               options={[

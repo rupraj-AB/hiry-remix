@@ -9,31 +9,29 @@ interface Step1Props {
     companyName: string;
     website: string;
     linkedinProfile: string;
-    firstName: string;
-    lastName: string;
-    position: string;
     logo: File | null;
-    profilePicture: File | null;
   };
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleContinue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onDpChange: (file: File | null) => void;
+  onLogoChange: (file: File | null) => void;
   currentStep: number;
+  errors: any;
 }
 
-const Step3: React.FC<Step1Props> = ({
+const Step1: React.FC<Step1Props> = ({
   formData,
   onInputChange,
-  onDpChange,
+  onLogoChange,
   currentStep,
   handleContinue,
+  errors,
 }) => {
   const [isLogoUploaded, setIsLogoUploaded] = useState(false);
 
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && file.size <= 10 * 1024 * 1024) {
-      onDpChange(file);
+      onLogoChange(file);
       setIsLogoUploaded(true);
     } else {
       alert("File size exceeds 10MB");
@@ -41,7 +39,7 @@ const Step3: React.FC<Step1Props> = ({
   };
 
   const handleLogoRemove = () => {
-    onDpChange(null);
+    onLogoChange(null);
     setIsLogoUploaded(false);
   };
   return (
@@ -49,22 +47,22 @@ const Step3: React.FC<Step1Props> = ({
       {/* Logo Upload Section */}
       <div className="my-10">
         <div className="flex items-center space-x-4">
-          <div className="w-32 h-32 bg-lime-light rounded-full flex items-center justify-center text-xl overflow-hidden">
-            {formData.profilePicture ? (
+          <div className="md:w-32 md:h-32 h-20 w-20  min-w-20 bg-lime-light rounded-full flex items-center justify-center text-xl">
+            {formData.logo ? (
               <img
-                src={URL.createObjectURL(formData.profilePicture)}
+                src={URL.createObjectURL(formData.logo)}
                 alt="Company Logo"
                 className="w-full h-full object-cover rounded-full"
               />
             ) : (
-              <div>
-                <img src="/logo/dp.png" alt="" className="mt-8 " />
-              </div>
+              <Text className="text-lime-primary" style="fs-500-28">
+                A
+              </Text>
             )}
           </div>
           <div className="space-y-1">
             <label className="block fs-500-14 text-neutral-black">
-              Upload your profile picture
+              Upload your company logo
             </label>
             <Text style="fs-400-12" className="text-neutral-secondary">
               Add a picture to foster trust with potential hires.
@@ -99,33 +97,35 @@ const Step3: React.FC<Step1Props> = ({
       </div>
 
       {/* Form Fields */}
-      <div className="flex flex-col w-full gap-4">
-        <div className="flex gap-2">
-          <Input
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={onInputChange}
-            placeholder="Jane"
-            required
-          />
-
-          <Input
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={onInputChange}
-            placeholder="Doe"
-            required
-          />
-        </div>
+      <div className="flex flex-col w-full gap-6">
+        <Input
+          label="Company name"
+          name="companyName"
+          error={errors.companyName}
+          value={formData.companyName}
+          onChange={onInputChange}
+          placeholder="Acme Inc."
+          required
+        />
 
         <Input
-          label="What do you do at DevStudio?"
-          name="position"
-          value={formData.position}
+          label="Website"
+          name="website"
+          value={formData.website}
+          error={errors.website}
           onChange={onInputChange}
-          placeholder="Your Position"
+          placeholder="acme.inc"
+          icon={<LinkIcon />}
+          required
+        />
+
+        <Input
+          label="LinkedIn profile"
+          name="linkedinProfile"
+          error={errors.linkedinProfile}
+          value={formData.linkedinProfile}
+          onChange={onInputChange}
+          placeholder="linkedin.com/username"
           required
         />
       </div>
@@ -133,4 +133,4 @@ const Step3: React.FC<Step1Props> = ({
   );
 };
 
-export default Step3;
+export default Step1;

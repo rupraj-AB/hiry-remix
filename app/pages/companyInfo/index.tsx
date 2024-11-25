@@ -1,22 +1,22 @@
-// CompanyInfo.tsx
 import React, { useState } from "react";
 import BuildingIcon from "~/assets/icons/BuildngIcon";
 import PencilIcon from "~/assets/icons/PencilIcon";
 import UserIcon from "~/assets/icons/UserIcon";
 import UsersIcon from "~/assets/icons/UsersIcon";
 import Stepper from "~/components/Stepper";
-import Step1 from "./Step1";
+import Step1 from "./steps/Step1";
 import Text from "~/components/Text";
 import { stepDetailsHeader } from "./data";
-import Step2 from "./Step2";
+import Step2 from "./steps/Step2";
 import Button from "~/components/Button";
-import Step3 from "./Step3";
+import Step3 from "./steps/Step3";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { colors } from "~/constants/colors";
 import ArrowBack from "~/assets/icons/ArrowBack";
-import Step4 from "./Step4";
+import Step4 from "./steps/Step4";
 import Header from "./Header";
-import { validateStep } from "./Validator";
+import { validateStep } from "../../utils/Validator";
+import FooterInfo from "./FooterInfo";
 
 const CompanyInfo = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +56,6 @@ const CompanyInfo = () => {
       icon: <UsersIcon />,
     },
   ];
-  console.log(formData, "formdata");
 
   const clearErrorByKey = (errors, key) => {
     const { [key]: removedError, ...remainingErrors } = errors;
@@ -116,7 +115,7 @@ const CompanyInfo = () => {
             formData={formData}
             onInputChange={handleInputChange}
             handleContinue={handleContinue}
-            // errors={errors}
+            errors={errors}
           />
         );
 
@@ -128,7 +127,7 @@ const CompanyInfo = () => {
             currentStep={currentStep}
             onDpChange={handleProfilePictureChange}
             handleContinue={handleContinue}
-            // errors={errors}
+            errors={errors}
           />
         );
 
@@ -138,7 +137,7 @@ const CompanyInfo = () => {
             formData={formData}
             onInputChange={handleInputChange}
             handleContinue={handleContinue}
-            // errors={errors}
+            errors={errors}
           />
         );
 
@@ -148,12 +147,12 @@ const CompanyInfo = () => {
   };
 
   return (
-    <div className="mx-auto container w-full px-10 mt-4 flex mb-10">
-      <div className="mb-8 w-4/12">
+    <div className="mx-auto container w-full px-4 md:px-10 mt-4 flex mb-10">
+      <div className="mb-8 w-4/12 ">
         <Stepper steps={steps} activeStep={currentStep} />
       </div>
 
-      <div className="w-4/12">
+      <div className="lg:w-4/12 md:w-8/12 w-12/12">
         <Header currentStep={currentStep} steps={steps} />
         {renderStep()}
         <div className="mt-10">
@@ -161,29 +160,7 @@ const CompanyInfo = () => {
             Continue
           </Button>
         </div>
-        {currentStep > 0 && (
-          <div className="flex justify-between items-center">
-            <div
-              onClick={() => setCurrentStep((prev) => prev - 1)}
-              className="flex items-center justify-start  mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
-            >
-              <ArrowBack /> <span className="ml-2"> Back </span>
-            </div>
-
-            {currentStep == 3 && (
-              <div
-                onClick={() => setCurrentStep((prev) => prev - 1)}
-                className="flex items-center justify-start  mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
-              >
-                <span className="mr-2"> Skip for now </span>{" "}
-                <div className="rotate-180">
-                  {" "}
-                  <ArrowBack />{" "}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+        <FooterInfo currentStep={currentStep} setCurrentStep={setCurrentStep} />
       </div>
     </div>
   );

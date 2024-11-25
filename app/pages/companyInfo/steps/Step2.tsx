@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { FaLocationArrow } from "react-icons/fa";
 import LanguageIcon from "~/assets/icons/LanguageIcon";
 import LocationIcon from "~/assets/icons/LocationIcon";
@@ -6,7 +6,8 @@ import TimeIcon from "~/assets/icons/TimeIcon";
 import Dropdown from "~/components/Dropdown";
 import Text from "~/components/Text";
 
-const Step2 = ({ formData, onInputChange, handleContinue }) => {
+const Step2 = ({ formData, onInputChange, handleContinue, errors }) => {
+  const MAX_CHARACTERS = 100;
   const [state, setState] = useState({
     industry: formData.industry,
     description: formData.description,
@@ -15,32 +16,53 @@ const Step2 = ({ formData, onInputChange, handleContinue }) => {
     timezone: formData.timezone,
   });
 
-  const handleChange = (name, value) => {
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    onInputChange({ target: { name, value } });
-  };
+  const [rows, setRows] = useState(6);
 
-  console.log(state, "states");
+  const handleChange = (name, value) => {
+    if (name === "description") {
+      const textareaLineHeight = 24;
+      const currentRows = Math.min(
+        Math.max(Math.ceil(value.split("\n").length), 6),
+        10
+      );
+      setRows(currentRows);
+
+      if (value.length <= MAX_CHARACTERS) {
+        setState((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+        onInputChange({ target: { name, value } });
+      }
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+      onInputChange({ target: { name, value } });
+    }
+  };
 
   return (
     <div>
-      <div className="mt-4">
+      <div className="mt-4 relative">
         <Text className="text-neutral-black" style="fs-500-14">
           Company Description
         </Text>
-        <textarea
-          className="w-full p-3 border border-neutral-light rounded-md mt-2 resize-none  focus:ring-neutral-primary
-            focus:border-neutral-primary
-            disabled:bg-gray-100"
-          rows={6}
-          name="description"
-          value={state.description}
-          onChange={(e) => handleChange("description", e.target.value)}
-          placeholder="Provide a brief description of your company"
-        />
+        <div className="relative">
+          <textarea
+            className="w-full p-3 border border-neutral-light rounded-md mt-2  focus:ring-neutral-primary focus:border-neutral-primary disabled:bg-gray-100"
+            rows={rows}
+            name="description"
+            value={state.description}
+            onChange={(e) => handleChange("description", e.target.value)}
+            placeholder="Provide a brief description of your company"
+            maxLength={MAX_CHARACTERS}
+          />
+          <div className="absolute bottom-2 right-2 text-xs text-neutral-500">
+            {state.description.length}/{MAX_CHARACTERS}
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col w-full gap-6 mt-6">
@@ -50,7 +72,7 @@ const Step2 = ({ formData, onInputChange, handleContinue }) => {
           onChange={(value) => handleChange("industry", value)}
           placeholder="Select industry"
           name="industry"
-          error=""
+          error={errors.industry}
           description="What industry does your company operate in?"
           options={[
             { value: "technology", label: "Technology" },
@@ -61,11 +83,12 @@ const Step2 = ({ formData, onInputChange, handleContinue }) => {
         <Dropdown
           icon={<LocationIcon />}
           label="Location"
+          error={errors.location}
           value={state.location.value}
           onChange={(value) => handleChange("location", value)}
           placeholder="Select location"
           name="location"
-          description="Where is your company based?"
+         
           options={[
             { value: "usa", label: "United States" },
             { value: "canada", label: "Canada" },
@@ -75,6 +98,7 @@ const Step2 = ({ formData, onInputChange, handleContinue }) => {
         <Dropdown
           icon={<LanguageIcon />}
           label="Languages"
+          error={errors.language}
           value={state.language.value}
           onChange={(value) => handleChange("language", value)}
           placeholder="Select languages"
@@ -91,6 +115,7 @@ const Step2 = ({ formData, onInputChange, handleContinue }) => {
           icon={<TimeIcon />}
           label="Timezone"
           value={state.timezone.value}
+          error={errors.timezone}
           onChange={(value) => handleChange("timezone", value)}
           placeholder="Select timezone"
           name="timezone"

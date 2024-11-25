@@ -3,6 +3,7 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import { BsCheck } from "react-icons/bs";
 import CheckIcon from "~/assets/icons/CheckIcon";
 import { colors } from "~/constants/colors";
+import XCircleIcon from "~/assets/icons/XCircleIcon";
 
 const Dropdown = ({
   label,
@@ -177,7 +178,14 @@ const Dropdown = ({
           </div>
         )}
       </div>
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {error && (
+        <p className="mt-1 text-sm text-destructive-800 fs-400-12 flex items-center">
+          <span className="mr-1">
+            <XCircleIcon />
+          </span>{" "}
+          {error}
+        </p>
+      )}
     </div>
   );
 };
