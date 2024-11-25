@@ -5,18 +5,18 @@ export const stepDetailsHeader = [
     
     },
     {
-      title: "Company Details",
-      description: "Share more about your company's background, industry, and unique value proposition to help us understand your business better.",
+      title: "Details",
+      description: "Provide additional information to help us find you better matches.",
     
     },
     {
       title: "Your Profile",
-      description: "Tell us about yourself - your role, expertise, and how you'll contribute to our community of innovative businesses.",
+      description: "Tell us about yourself ",
      
     },
     {
-      title: "Invite Team",
-      description: "Grow your network by inviting key team members. Collaboration starts here - connect with colleagues who can help drive your success.",
+      title: "Invite team members",
+      description: "Get your team on Hiry to keep everyone up to date in your hiring process.",
       
     }
   ];

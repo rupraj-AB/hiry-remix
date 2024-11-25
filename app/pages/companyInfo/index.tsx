@@ -9,17 +9,35 @@ import Step1 from "./Step1";
 import Text from "~/components/Text";
 import { stepDetailsHeader } from "./data";
 import Step2 from "./Step2";
+import Button from "~/components/Button";
+import Step3 from "./Step3";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { colors } from "~/constants/colors";
+import ArrowBack from "~/assets/icons/ArrowBack";
+import Step4 from "./Step4";
+import Header from "./Header";
+import { validateStep } from "./Validator";
 
 const CompanyInfo = () => {
   const [formData, setFormData] = useState({
     companyName: "",
     website: "",
     linkedinProfile: "",
+    description: "",
     logo: null,
+    industry: "",
+    firstName: "",
+    lastName: "",
+    position: "",
+    location: "",
+    language: "",
+    timezone: "",
+    profilePicture: null,
+    invites: [{ inviteEmail: "", inviteRole: "" }],
   });
 
   const [currentStep, setCurrentStep] = useState(0);
-
+  const [errors, setErrors] = useState({});
   const steps = [
     {
       text: "Company info",
@@ -38,12 +56,19 @@ const CompanyInfo = () => {
       icon: <UsersIcon />,
     },
   ];
+  console.log(formData, "formdata");
+
+  const clearErrorByKey = (errors, key) => {
+    const { [key]: removedError, ...remainingErrors } = errors;
+    return remainingErrors;
+  };
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setErrors((prev) => clearErrorByKey(prev, e.target.name));
   };
   const handleLogoChange = (file: File | null) => {
     setFormData({
@@ -52,8 +77,24 @@ const CompanyInfo = () => {
     });
   };
 
+  const handleProfilePictureChange = (file: File | null) => {
+    setFormData({
+      ...formData,
+      profilePicture: file,
+    });
+  };
+
+  console.log(errors, "errors");
+
   const handleContinue = () => {
-    setCurrentStep((prev) => prev + 1);
+    const stepErrors = validateStep(currentStep, formData);
+
+    if (Object.keys(stepErrors).length === 0) {
+      setCurrentStep((prev) => prev + 1);
+      setErrors({});
+    } else {
+      setErrors(stepErrors);
+    }
   };
   const renderStep = () => {
     switch (currentStep) {
@@ -65,6 +106,7 @@ const CompanyInfo = () => {
             currentStep={currentStep}
             onLogoChange={handleLogoChange}
             handleContinue={handleContinue}
+            errors={errors}
           />
         );
 
@@ -74,35 +116,74 @@ const CompanyInfo = () => {
             formData={formData}
             onInputChange={handleInputChange}
             handleContinue={handleContinue}
+            // errors={errors}
           />
         );
-      // Add more cases for other steps
+
+      case 2:
+        return (
+          <Step3
+            formData={formData}
+            onInputChange={handleInputChange}
+            currentStep={currentStep}
+            onDpChange={handleProfilePictureChange}
+            handleContinue={handleContinue}
+            // errors={errors}
+          />
+        );
+
+      case 3:
+        return (
+          <Step4
+            formData={formData}
+            onInputChange={handleInputChange}
+            handleContinue={handleContinue}
+            // errors={errors}
+          />
+        );
+
       default:
         return null;
     }
   };
 
   return (
-    <div className="mx-auto container w-full px-10 mt-4 flex">
-      {/* Stepper */}
+    <div className="mx-auto container w-full px-10 mt-4 flex mb-10">
       <div className="mb-8 w-4/12">
         <Stepper steps={steps} activeStep={currentStep} />
       </div>
 
       <div className="w-4/12">
-        <Text className="text-neutral-tertiary" style="fs-400-14">
-          Step {currentStep + 1} / {steps.length}
-        </Text>
-        <div className="my-3">
-          <Text className="text-neutral-black" variant="h1" style="fs-550-32">
-            {stepDetailsHeader[currentStep].title}
-          </Text>
-          <Text style="fs-400-16" className="text-neutral-secondary my-3">
-            {stepDetailsHeader[currentStep].description}
-          </Text>
-        </div>
-
+        <Header currentStep={currentStep} steps={steps} />
         {renderStep()}
+        <div className="mt-10">
+          <Button onClick={handleContinue} fullWidth={true}>
+            Continue
+          </Button>
+        </div>
+        {currentStep > 0 && (
+          <div className="flex justify-between items-center">
+            <div
+              onClick={() => setCurrentStep((prev) => prev - 1)}
+              className="flex items-center justify-start  mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
+            >
+              <ArrowBack /> <span className="ml-2"> Back </span>
+            </div>
+
+            {currentStep == 3 && (
+              <div
+                onClick={() => setCurrentStep((prev) => prev - 1)}
+                className="flex items-center justify-start  mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
+              >
+                <span className="mr-2"> Skip for now </span>{" "}
+                <div className="rotate-180">
+                  {" "}
+                  <ArrowBack />{" "}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

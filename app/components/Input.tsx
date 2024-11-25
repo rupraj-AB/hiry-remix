@@ -1,5 +1,6 @@
 import React from "react";
 import { BiX, BiXCircle } from "react-icons/bi";
+import XCircleIcon from "~/assets/icons/XCircleIcon";
 
 const Input = ({
   label,
@@ -23,7 +24,7 @@ const Input = ({
           className="block fs-500-14 text-neutral-black font-medium mb-2"
         >
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {/* {required && <span className="text-red-500 ml-1">*</span>} */}
         </label>
       )}
       <div className="relative">
@@ -65,7 +66,7 @@ const Input = ({
             ${clearable && value ? "pr-10" : ""}
             ${
               error
-                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
+                ? "!border-destructive-500 focus:ring-destructive-500 focus:border-destructive-500"
                 : ""
             }
           `}
@@ -81,7 +82,14 @@ const Input = ({
           </button>
         )}
       </div>
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {error && (
+        <p className="mt-1 text-sm text-destructive-800 fs-400-12 flex items-center">
+          <span className="mr-1">
+            <XCircleIcon />
+          </span>{" "}
+          {error}
+        </p>
+      )}
     </div>
   );
 };

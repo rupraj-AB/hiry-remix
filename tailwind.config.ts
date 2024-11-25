@@ -12,6 +12,7 @@ export default {
         destructive: {
           100: "#FECDD3",
           500: "#E11D48",
+          800:"#9F1339"
         },
         success: "#166434",
         neutral: {

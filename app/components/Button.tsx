@@ -1,10 +1,7 @@
-import React from "react";
-
 const Button = ({
   variant = "primary",
   children,
   onClick,
-
   icon,
   iconPosition = "left",
   disabled = false,
@@ -21,17 +18,15 @@ const Button = ({
   };
 
   const renderContent = () => {
-    if (!icon) return children;
-
-    const iconElement = React.cloneElement(icon, {
-      className: `${iconPosition === "left" ? "mr-2" : "ml-2"}`,
-    });
-
     return (
       <>
-        {iconPosition === "left" && iconElement}
+        {icon && iconPosition === "left" && (
+          <span className="mr-2">{icon}</span>
+        )}
         {children}
-        {iconPosition === "right" && iconElement}
+        {icon && iconPosition === "right" && (
+          <span className="ml-2">{icon}</span>
+        )}
       </>
     );
   };
