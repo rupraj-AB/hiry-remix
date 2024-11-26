@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import LinkIcon from "~/assets/icons/LinkIcon";
 import Button from "~/components/Button";
 import Input from "~/components/Input";
+import Spinner from "~/components/Spinner";
 import Text from "~/components/Text";
 import { Step1Props } from "~/types/company";
 
-// Spinner Component
-const Spinner = () => (
-  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline-block mr-2"></div>
-);
+
 
 const Step1: React.FC<Step1Props> = ({
   formData,
@@ -61,18 +59,18 @@ const Step1: React.FC<Step1Props> = ({
           </div>
           <div className="">
             <label className="block fs-500-14 text-neutral-black">
-              {isUploading 
-                ? "Uploading" 
-                : (isLogoUploaded ? "Company Logo" : "Upload your company logo")
-              }
+              {isUploading
+                ? "Uploading"
+                : isLogoUploaded
+                ? "Company Logo"
+                : "Upload your company logo"}
             </label>
             <Text style="fs-400-12" className="text-neutral-secondary">
-              {isUploading 
-                ? "Please wait while your logo is being uploaded" 
-                : (isLogoUploaded
-                    ? "Logo uploaded successfully"
-                    : "Add a picture to foster trust with potential hires.")
-              }
+              {isUploading
+                ? "Please wait while your logo is being uploaded"
+                : isLogoUploaded
+                ? "Logo uploaded successfully"
+                : "Add a picture to foster trust with potential hires."}
             </Text>
             <Text style="fs-400-12" className="text-neutral-secondary mb-3">
               Maximum size 10MB.
@@ -89,21 +87,25 @@ const Step1: React.FC<Step1Props> = ({
               htmlFor="logo-upload"
               className={`
                 fs-500-14 px-4 py-2 rounded-full cursor-pointer inline-block transition-colors
-                ${isUploading 
-                  ? "bg-neutral-300 text-neutral-600 cursor-not-allowed" 
-                  : (isLogoUploaded
+                ${
+                  isUploading
+                    ? "bg-neutral-primary fs-500-14 text-neutral-disabled cursor-not-allowed"
+                    : isLogoUploaded
                     ? "bg-white text-neutral-black border border-neutral-primary hover:bg-blue-50"
-                    : "bg-blue-secondary text-white hover:bg-blue-700")
+                    : "bg-blue-secondary text-white hover:bg-blue-700"
                 }
               `}
             >
               {isUploading ? (
                 <span className="flex items-center justify-center">
-                  
-                  Uploading...
+                  Uploading
                   <Spinner />
                 </span>
-              ) : (isLogoUploaded ? "Change Logo" : "Upload")}
+              ) : isLogoUploaded ? (
+                "Change Logo"
+              ) : (
+                "Upload"
+              )}
             </label>
 
             {isLogoUploaded && !isUploading && (
@@ -147,7 +149,9 @@ const Step1: React.FC<Step1Props> = ({
           error={errors.linkedinProfile}
           value={formData.linkedinProfile}
           onChange={onInputChange}
-          placeholder="linkedin.com/username"
+          icon={<span>linkedin.com/</span>}
+          leftPadding="pl-[120px]"
+          placeholder="username"
           required
         />
       </div>

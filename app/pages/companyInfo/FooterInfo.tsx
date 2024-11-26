@@ -14,7 +14,7 @@ const FooterInfo = ({ currentStep, setCurrentStep }) => {
         <div className="flex justify-between items-center">
           <div
             onClick={() => setCurrentStep((prev) => prev - 1)}
-            className="flex items-center justify-start px-4 py-3 mt-1 fs-500-16 text-neutral-secondary cursor-pointer"
+            className="flex items-center justify-start px-4 py-3 mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
           >
             <ArrowBack /> <span className="ml-2"> Back </span>
           </div>
@@ -22,7 +22,7 @@ const FooterInfo = ({ currentStep, setCurrentStep }) => {
           {currentStep == 3 && (
             <div
               onClick={skipForNow}
-              className="flex items-center justify-start px-4 py-3 mt-1 fs-500-16 text-neutral-secondary cursor-pointer"
+              className="flex items-center justify-start px-4 py-3 mt-4 fs-500-16 text-neutral-secondary cursor-pointer"
             >
               <span className="mr-2"> Skip for now </span>{" "}
               <div className="rotate-180">

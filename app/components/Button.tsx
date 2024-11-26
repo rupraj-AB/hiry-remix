@@ -40,9 +40,8 @@ const Button = ({
         ${variants[variant]}
         ${fullWidth ? "w-full" : ""}
         focus:outline-none
-        focus:ring-2
-        focus:ring-offset-2
-        ${variant === "primary" ? "focus:ring-blue-500" : "focus:ring-gray-500"}
+      
+        
         disabled:cursor-not-allowed
       `}
       {...props}

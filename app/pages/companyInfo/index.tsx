@@ -39,7 +39,7 @@ const CompanyInfo = () => {
     accessLevel: "",
   });
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(3);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const steps = [
@@ -156,8 +156,8 @@ const CompanyInfo = () => {
     }
   };
 
-  return (
-    <div className="mx-auto container w-full px-4 md:px-10 mt-4 flex md:flex-row flex-col mb-10">
+  return ( 
+    <div className="mx-auto container w-full px-4 md:px-10 mt-4 flex md:flex-row flex-col mb-10 gap-5 ">
       <div className="mb-8 w-full  md:w-4/12 ">
         <Stepper steps={steps} activeStep={currentStep} />
       </div>

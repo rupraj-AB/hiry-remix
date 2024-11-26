@@ -56,7 +56,7 @@ const TextArea: React.FC<TextAreaWithCounterProps> = ({
           placeholder={placeholder}
           maxLength={maxCharacters}
         />
-        <div className="absolute bottom-2 right-2 text-xs text-neutral-500">
+        <div className="absolute bottom-2 right-3 fs-400-12 text-neutral-tertiary">
           {value.length}/{maxCharacters}
         </div>
       </div>

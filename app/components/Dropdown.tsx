@@ -133,6 +133,7 @@ const Dropdown = ({
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
             <IoChevronDownOutline
+            color={colors.neutral.tertiary}
               className={`transition-transform duration-200 ${
                 isOpen ? "rotate-180" : ""
               }`}

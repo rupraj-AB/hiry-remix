@@ -84,7 +84,7 @@ const Step4 = ({ formData, onInputChange, handleContinue, errors }) => {
         <div className="mt-10">
           {invites.map((invite, index) => (
             <div key={index} className="flex items-center gap-2 mb-3 relative">
-              <div className="md:6/12  w-3/5">
+              <div className="w-3/5">
                 <Input
                   type="email"
                   label=""
@@ -98,7 +98,7 @@ const Step4 = ({ formData, onInputChange, handleContinue, errors }) => {
                   placeholder="jhon@gmail.com"
                 />
               </div>
-              <div className="w-2/5 md:6/12">
+              <div className="w-2/5">
                 <Dropdown
                   value={invite.inviteRole.value}
                   onChange={(value) =>

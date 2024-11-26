@@ -21,7 +21,8 @@ export default {
           tertiary: "#71717A",
           secondary:"#52525B",
           defaultBlack: "#1E1E1E",
-          soft:"#FAFAFA"
+          soft:"#FAFAFA",
+          disabled:"#A1A1AA"
         },
         lime: {
           light: "#F1FFC7",

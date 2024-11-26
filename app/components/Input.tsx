@@ -13,6 +13,7 @@ const Input = ({
   error = "",
   icon,
   onIconClick,
+  leftPadding = "pl-10",
   clearable = false,
   ...props
 }: any) => {
@@ -62,7 +63,7 @@ const Input = ({
             focus:border-neutral-primary
             disabled:bg-gray-100
             disabled:cursor-not-allowed
-            ${icon ? "pl-10" : ""}
+            ${icon ? `${leftPadding}` : ""}
             ${clearable && value ? "pr-10" : ""}
             ${
               error
