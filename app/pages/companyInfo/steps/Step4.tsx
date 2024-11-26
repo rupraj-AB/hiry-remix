@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import EnvelopIcon from "~/assets/icons/EnvelopIcon";
 import PlusIcon from "~/assets/icons/PlusIcon";
 import TrashIcon from "~/assets/icons/TrashIcon";
 import Button from "~/components/Button";
@@ -49,20 +50,21 @@ const Step4 = ({ formData, onInputChange, handleContinue, errors }) => {
     <div className="mt-10">
       {invites.map((invite, index) => (
         <div key={index} className="flex items-center gap-2 mb-3 relative">
-          <div className="md:6/12 w-7/12">
+          <div className="md:6/12  w-3/5">
             <Input
               type="email"
               label=""
+              icon={<EnvelopIcon />}
               error={errors[`inviteEmail-${index}`]}
               name={`inviteEmail-${index}`}
               value={invite.inviteEmail}
               onChange={(e) =>
                 handleInviteChange(index, "inviteEmail", e.target.value)
               }
-              placeholder="example@email.com"
+              placeholder="jhon@gmail.com"
             />
           </div>
-          <div className="w-5/12 md:6/12">
+          <div className="w-2/5 md:6/12">
             <Dropdown
               value={invite.inviteRole.value}
               onChange={(value) =>

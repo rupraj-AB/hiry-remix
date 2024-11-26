@@ -1,7 +1,6 @@
 import React from "react";
 import CheckIcon from "~/assets/icons/CheckIcon";
 import useWindowSize from "~/hooks/useWindowSize";
-
 const Stepper = ({ steps, activeStep = 0 }) => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
@@ -9,6 +8,7 @@ const Stepper = ({ steps, activeStep = 0 }) => {
     if (isActive) return "#0E0CFF";
     return "";
   };
+
   return isMobile ? (
     <div className="flex items-center w-full justify-between">
       {steps.map((step, index) => {
@@ -19,8 +19,8 @@ const Stepper = ({ steps, activeStep = 0 }) => {
         const stepWidth = isLastStep
           ? isActive
             ? "10%"
-            : "3%"
-          : `${125 / steps.length}%`;
+            : "4%"
+          : `${135 / steps.length}%`;
 
         return (
           <React.Fragment key={index}>
@@ -30,15 +30,15 @@ const Stepper = ({ steps, activeStep = 0 }) => {
             >
               <div
                 className={`
-              rounded-full flex items-center justify-center z-10
-              ${
-                isActive
-                  ? "border-neutral-primary border-[1px] shadow-custom-md  w-8 h-8 bg-white"
-                  : isCompleted
-                  ? "bg-lime-light  w-6 h-6"
-                  : "bg-purple-surface  w-3 h-3"
-              }
-            `}
+                  rounded-full flex items-center justify-center z-10
+                  ${
+                    isActive
+                      ? "border-neutral-primary border-[1px] shadow-xl w-8 h-8 bg-white"
+                      : isCompleted
+                      ? "bg-lime-light  w-6 h-6"
+                      : "bg-purple-surface  w-3 h-3"
+                  }
+                `}
               >
                 {isCompleted ? (
                   <CheckIcon />
@@ -56,13 +56,16 @@ const Stepper = ({ steps, activeStep = 0 }) => {
                 <div className="absolute left-0 right-0 h-[2px] top-1/2 transform -translate-y-1/2">
                   <div
                     className={`
-                  absolute inset-0 
-                  ${
-                    isCompleted
-                      ? "bg-lime-border"
-                      : "bg-transparent border-t-2 border-dashed border-gray-200"
-                  }
-                `}
+                      absolute inset-0 transition-all duration-500 ease-in-out
+                      ${
+                        isCompleted
+                          ? "bg-lime-border w-full"
+                          : "bg-transparent border-t-2 border-dashed border-gray-200 "
+                      }
+                    `}
+                    style={{
+                      transitionProperty: 'width, background-color',
+                    }}
                   />
                 </div>
               )}
@@ -72,6 +75,7 @@ const Stepper = ({ steps, activeStep = 0 }) => {
       })}
     </div>
   ) : (
+    // Desktop version remains the same as before
     <div className="flex flex-col space-y-1">
       {steps.map((step, index) => {
         const isActive = index === activeStep;
@@ -105,16 +109,18 @@ const Stepper = ({ steps, activeStep = 0 }) => {
               </div>
               {index !== steps.length - 1 && (
                 <div className="relative w-[2px] h-8">
-                  {/* Background line (dashed) */}
                   <div
                     className={`
-                      absolute inset-0 
+                      absolute inset-0 transition-all duration-500 ease-in-out
                       ${
                         isCompleted
-                          ? "bg-lime-border"
-                          : "bg-transparent border-l-2 border-dashed border-gray-200"
+                          ? "bg-lime-border h-full"
+                          : "bg-transparent border-l-2 border-dashed border-gray-200 "
                       }
                     `}
+                    style={{
+                      transitionProperty: 'height, background-color',
+                    }}
                   />
                 </div>
               )}
@@ -136,5 +142,4 @@ const Stepper = ({ steps, activeStep = 0 }) => {
     </div>
   );
 };
-
 export default Stepper;

@@ -63,14 +63,14 @@ const Step3: React.FC<Step1Props> = ({
               </div>
             )}
           </div>
-          <div className="space-y-1">
+          <div className="">
             <label className="block fs-500-14 text-neutral-black">
               Upload your profile picture
             </label>
             <Text style="fs-400-12" className="text-neutral-secondary">
               Add a picture to foster trust with potential hires.
             </Text>
-            <Text style="fs-400-12" className="text-neutral-secondary">
+            <Text style="fs-400-12" className="text-neutral-secondary mb-3">
               Maximum size 10MB.
             </Text>
             <input

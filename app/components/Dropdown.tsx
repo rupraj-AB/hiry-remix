@@ -4,6 +4,7 @@ import { BsCheck } from "react-icons/bs";
 import CheckIcon from "~/assets/icons/CheckIcon";
 import { colors } from "~/constants/colors";
 import XCircleIcon from "~/assets/icons/XCircleIcon";
+import useWindowSize from "~/hooks/useWindowSize";
 
 const Dropdown = ({
   label,
@@ -22,6 +23,8 @@ const Dropdown = ({
   const [searchTerm, setSearchTerm] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -141,10 +144,14 @@ const Dropdown = ({
         {isOpen && (
           <div
             className="absolute p-2 z-10 w-full mt-1 bg-white border border-neutral-primary rounded-lg shadow-lg overflow-hidden"
-            // style={{
-            //   background:
-            //     "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(240,240,255,0.9) 100%)",
-            // }}
+            style={
+              isMobile
+                ? {
+                    background:
+                      "linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(240,240,255,1) 100%)",
+                  }
+                : {}
+            }
           >
             <div className="max-h-60 overflow-y-auto">
               {filteredOptions.map((option: any) => (
@@ -156,7 +163,7 @@ const Dropdown = ({
                     w-full px-3 py-2.5 text-left fs-400-14-18
                     flex items-center justify-between
                     hover:bg-neutral-soft
-                    ${value === option.value ? "bg-neutral-soft" : ""}
+                    ${value === option.value ? "md:bg-neutral-soft" : ""}
                   `}
                 >
                   <span>{option.label}</span>

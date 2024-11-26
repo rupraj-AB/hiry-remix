@@ -56,30 +56,31 @@ const Step1: React.FC<Step1Props> = ({
               />
             ) : (
               <Text className="text-lime-primary" style="fs-500-28">
-                A
+                {formData?.companyName?formData.companyName.slice(0,1):"A"}
               </Text>
             )}
           </div>
-          <div className="space-y-1">
+          <div className="">
             <label className="block fs-500-14 text-neutral-black">
               Upload your company logo
             </label>
             <Text style="fs-400-12" className="text-neutral-secondary">
               Add a picture to foster trust with potential hires.
             </Text>
-            <Text style="fs-400-12" className="text-neutral-secondary">
+            <Text style="fs-400-12" className="text-neutral-secondary mb-3">
               Maximum size 10MB.
             </Text>
             <input
               type="file"
               accept="image/*"
+              
               onChange={handleLogoUpload}
               className="hidden"
               id="logo-upload"
             />
             <label
               htmlFor="logo-upload"
-              className="bg-blue-secondary text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-700 inline-block text-sm font-medium transition-colors"
+              className="bg-blue-secondary  fs-500-14 text-white px-4 py-2 rounded-full cursor-pointer hover:bg-blue-700 inline-block transition-colors"
             >
               Upload
             </label>

@@ -3,7 +3,7 @@ import Text from "~/components/Text";
 
 const CompletedScreen = () => {
   return (
-    <div className="p-4 md:mt-0 mt-16">
+    <div className="p-4 md:-mt-16 mt-16">
       <div className="my-3 text-center">
         <Text
           textAlign="center"
@@ -24,7 +24,7 @@ const CompletedScreen = () => {
       </div>
 
       <div className="flex gap-4 mt-8 md:flex-row flex-col">
-        <div className="border rounded-2xl  border-neutral-primary w-full h-full bg-white overflow-hidden ">
+        <div className="border rounded-2xl hover:shadow-lg transition-all ease-in-out duration-200 cursor-pointer border-neutral-primary w-full h-full bg-white overflow-hidden ">
           <div className="relative">
             <img src="/assets/browse.png" alt="" />
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-white/0"></div>
@@ -38,7 +38,7 @@ const CompletedScreen = () => {
           </Text>
         </div>
 
-        <div className="border rounded-2xl relative border-neutral-primary w-full h-full bg-white  overflow-hidden">
+        <div className="border rounded-2xl relative hover:shadow-lg transition-all ease-in-out duration-200 cursor-pointer border-neutral-primary w-full h-full bg-white  overflow-hidden">
           <div className="relative">
             <img src="/assets/create.png" alt="" />
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-white/0"></div>
