@@ -35,9 +35,11 @@ const CompanyInfo = () => {
     timezone: "",
     profilePicture: null,
     invites: [{ inviteEmail: "", inviteRole: "" }],
+    inviteEmails: "",
+    accessLevel: "",
   });
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(3);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const steps = [
@@ -85,7 +87,7 @@ const CompanyInfo = () => {
     });
   };
 
-  console.log(errors, "errors");
+
 
   const handleContinue = () => {
     if (currentStep == steps.length - 1) {

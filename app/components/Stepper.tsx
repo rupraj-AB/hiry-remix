@@ -89,7 +89,7 @@ const Stepper = ({ steps, activeStep = 0 }) => {
                   w-8 h-8 rounded-full flex items-center justify-center -mt-[0.25rem]
                   ${
                     isActive
-                      ? "border-neutral-primary border-[1px] shadow-custom-md bg-white"
+                      ? "border-neutral-primary border-[1px] shadow-xl  bg-white"
                       : isCompleted
                       ? "bg-lime-light"
                       : "bg-purple-soft"

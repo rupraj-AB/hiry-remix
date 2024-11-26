@@ -3,20 +3,9 @@ import LinkIcon from "~/assets/icons/LinkIcon";
 import Button from "~/components/Button";
 import Input from "~/components/Input";
 import Text from "~/components/Text";
+import { Step1Props } from "~/types/company";
 
-interface Step1Props {
-  formData: {
-    companyName: string;
-    website: string;
-    linkedinProfile: string;
-    logo: File | null;
-  };
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleContinue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onLogoChange: (file: File | null) => void;
-  currentStep: number;
-  errors: any;
-}
+
 
 const Step1: React.FC<Step1Props> = ({
   formData,

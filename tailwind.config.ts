@@ -37,7 +37,7 @@ export default {
       },
       boxShadow: {
         "custom-sm": "0px 2px 4px -2px rgba(31, 41, 55, 0.06)",
-        "custom-md": "0px 4px 8px -2px rgba(31, 41, 55, 0.1)",
+        "custom-md": "0px 4px 8px -2px #1F29371A",
       },
       fontFamily: {
         sans: [
