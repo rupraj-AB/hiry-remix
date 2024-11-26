@@ -39,7 +39,7 @@ const CompanyInfo = () => {
     accessLevel: "",
   });
 
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const steps = [
