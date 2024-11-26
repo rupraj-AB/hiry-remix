@@ -1,5 +1,5 @@
-import React from "react";
-import { BiX, BiXCircle } from "react-icons/bi";
+import React, { useRef } from "react";
+import { BiXCircle } from "react-icons/bi";
 import XCircleIcon from "~/assets/icons/XCircleIcon";
 
 const Input = ({
@@ -12,11 +12,18 @@ const Input = ({
   required = false,
   error = "",
   icon,
-  onIconClick,
   leftPadding = "pl-10",
   clearable = false,
   ...props
 }: any) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleIconClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <div className="w-full">
       {label && (
@@ -25,20 +32,19 @@ const Input = ({
           className="block fs-500-14 text-neutral-black font-medium mb-2"
         >
           {label}
-          {/* {required && <span className="text-red-500 ml-1">*</span>} */}
         </label>
       )}
       <div className="relative">
         {icon && (
           <div
-            className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-500
-              ${onIconClick ? "cursor-pointer hover:text-gray-700" : ""}`}
-            onClick={onIconClick}
+            className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer`}
+            onClick={handleIconClick}
           >
             {icon}
           </div>
         )}
         <input
+          ref={inputRef}
           type={type}
           id={name}
           name={name}
